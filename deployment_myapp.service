@@ -1,0 +1,19 @@
+# systemd unit for a Spring Boot jar. Install to /etc/systemd/system/myapp.service
+[Unit]
+Description=My Spring Boot application
+After=network.target
+
+[Service]
+User=myapp
+Group=myapp
+WorkingDirectory=/opt/myapp
+ExecStart=/usr/bin/java -Xms512m -Xmx2g -jar /opt/myapp/myapp.jar
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
